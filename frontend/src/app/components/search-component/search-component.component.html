@@ -1,0 +1,12 @@
+<form class="form-header" #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm)">
+    <input
+      class="au-input au-input-xl"
+      type="text"
+      name="search"
+      placeholder="Search for data ..."
+      [(ngModel)]="searchQuery"
+      required
+    />
+    <button class="au-btn-submit" [routerLink]="['/search', searchQuery]" routerLinkActive type="submit">Search</button>
+  </form>
+  

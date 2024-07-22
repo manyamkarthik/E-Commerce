@@ -1,0 +1,16 @@
+<div class="detail-section">
+    <div class="container-fluid">
+        <img src="{{ data.imageUrl }}" class="detail-img"/>
+        <h3>{{data.name}}</h3>
+        <div class="price">{{data.unitPrice |currency:'USD'}}</div>
+        <button (click)="handleCart(data)" class="btn btn-primary btn-sm">
+            Add to Cart
+          </button>
+        
+        <hr>
+        <h4>Description</h4>
+        <p>{{data.description}}</p>
+
+        <button (click)="goBack()" class="btn btn-secondary">Back to Product List</button>
+    </div>
+</div>

@@ -1,0 +1,502 @@
+<div class="main-content page-m">
+  <div class="section-content section-content-p30">
+      <div class="container-fluid">
+
+          <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
+
+              <!-- customer form group -->
+              <div formGroupName="customer" class="form-area">
+                  <h3>Customer</h3>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>First Name</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <input formControlName="firstName" type="text">
+                              @if (firstName?.invalid && (firstName?.touched||firstName?.dirty)) {
+                              <div>
+                                @if (firstName?.errors?.['required']) {
+                                <div class="alert alert-danger">
+                                    First Name is Required.
+                                </div>
+                                }
+                                @if (firstName?.errors?.['minlength']) {
+                                    <div class="alert alert-danger">
+                                        Minimum length.
+                                    </div>
+                                    }
+                              </div>
+                            }
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Last Name</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <input formControlName="lastName" type="text">
+                              @if (lastName?.invalid && (lastName?.touched||lastName?.dirty)) {
+                                <div>
+                                  @if (lastName?.errors?.['required']) {
+                                  <div class="alert alert-danger">
+                                      Last Name is Required.
+                                  </div>
+                                  }
+                                  @if (lastName?.errors?.['minlength']) {
+                                      <div class="alert alert-danger">
+                                          Minimum length.
+                                      </div>
+                                      }
+                                </div>
+                              }
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Email</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <input formControlName="email" type="text">
+                              @if (email?.invalid && (email?.touched||email?.dirty)) {
+                                <div>
+                                  @if (email?.errors?.['required']) {
+                                  <div class="alert alert-danger">
+                                      Email is Required.
+                                  </div>
+                                  }
+                                  @if (email?.errors?.['pattern']) {
+                                      <div class="alert alert-danger">
+                                          Check Email Address Again!!
+                                      </div>
+                                      }
+                                </div>
+                              }
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+
+              <!-- shipping Address -->
+              <div formGroupName="shippingAddress" class="form-area">
+                  <h3>Shipping Address</h3>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Country</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <select formControlName="country" (change)="handleStatesData($event, 'shipping')">
+                               @for(country of countryData; track country.id){
+                                  <option>{{country.name}}</option>
+                               }
+                                
+                              </select>
+                              @if (countryShipping?.invalid && (countryShipping?.touched||countryShipping?.dirty)) {
+                                <div>
+                                  @if (countryShipping?.errors?.['required']) {
+                                  <div class="alert alert-danger">
+                                      Select A Country
+                                  </div>
+                                  }
+              
+                                </div>
+                              }
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Street</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <input formControlName="street" type="text">
+                              @if (streetShipping?.invalid && (streetShipping?.touched||streetShipping?.dirty)) {
+                                <div>
+                                  @if (streetShipping?.errors?.['required']) {
+                                  <div class="alert alert-danger">
+                                      Street is Required.
+                                  </div>
+                                  }
+                                  @if (streetShipping?.errors?.['minlength']) {
+                                      <div class="alert alert-danger">
+                                          Minimum length is 5.
+                                      </div>
+                                      }
+                                </div>
+                              }
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>City</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <input formControlName="city" type="text">
+                              @if (cityShipping?.invalid && (cityShipping?.touched||cityShipping?.dirty)) {
+                                <div>
+                                  @if (cityShipping?.errors?.['required']) {
+                                  <div class="alert alert-danger">
+                                      City is Required.
+                                  </div>
+                                  }
+                                  @if (cityShipping?.errors?.['minlength']) {
+                                      <div class="alert alert-danger">
+                                          Minimum length is 2.
+                                      </div>
+                                      }
+                                </div>
+                              }
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>State</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <select formControlName="state">
+                                @for(state of stateData; track state.id){
+                                    <option>{{state.name}}</option>
+                                 }
+                                
+                              </select>
+                              @if (stateShipping?.invalid && (stateShipping?.touched||stateShipping?.dirty)) {
+                                <div>
+                                  @if (stateShipping?.errors?.['required']) {
+                                  <div class="alert alert-danger">
+                                      Select A State
+                                  </div>
+                                  }
+              
+                                </div>
+                              }
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Zip Code</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <input formControlName="zipCode" type="text">
+                              
+                          </div>
+                          @if (zipCodeShipping?.invalid && (zipCodeShipping?.touched||zipCodeShipping?.dirty)) {
+                            <div>
+                              @if (zipCodeShipping?.errors?.['required']) {
+                              <div class="alert alert-danger">
+                                  ZipCode is Required.
+                              </div>
+                              }
+                              @if (zipCodeShipping?.errors?.['minlength']) {
+                                  <div class="alert alert-danger">
+                                      Check the ZipCode Again
+                                  </div>
+                                  }
+                            </div>
+                          }
+                      </div>
+                  </div>
+
+              </div>
+
+              <!-- Add check box to copy shipping to billing -->
+              <div class="input-space">
+                  <label class="au-checkbox">
+                      <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)">
+                      <span class="au-checkmark"></span>Billing Address same as Shipping Address
+                  </label>
+              </div>
+
+
+              <!-- Billing Address -->
+              <div formGroupName="billingAddress" class="form-area">
+                  <h3>Billing Address</h3>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Country</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <select formControlName="country" (change)="handleStatesData($event, 'billing')" >
+                                @for(country of countryData; track country.id){
+                                    <option>{{country.name}}</option>
+                                 }
+                              </select>
+                              @if (countryBilling?.invalid && (countryBilling?.touched||countryBilling?.dirty)) {
+                                <div>
+                                  @if (countryBilling?.errors?.['required']) {
+                                  <div class="alert alert-danger">
+                                      Select A Country
+                                  </div>
+                                  }
+              
+                                </div>
+                              }
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Street</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <input formControlName="street" type="text">
+                              @if (streetBilling?.invalid && (streetBilling?.touched||streetBilling?.dirty)) {
+                                <div>
+                                  @if (streetBilling?.errors?.['required']) {
+                                  <div class="alert alert-danger">
+                                      Street is Required.
+                                  </div>
+                                  }
+                                  @if (streetBilling?.errors?.['minlength']) {
+                                      <div class="alert alert-danger">
+                                          Minimum length is 5.
+                                      </div>
+                                      }
+                                </div>
+                              }
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>City</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <input formControlName="city" type="text">
+                          </div>
+                          @if (cityShipping?.invalid && (cityShipping?.touched||cityShipping?.dirty)) {
+                            <div>
+                              @if (cityShipping?.errors?.['required']) {
+                              <div class="alert alert-danger">
+                                  City is Required.
+                              </div>
+                              }
+                              @if (cityShipping?.errors?.['minlength']) {
+                                  <div class="alert alert-danger">
+                                      Minimum length is 2.
+                                  </div>
+                                  }
+                            </div>
+                          }
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>State</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <select formControlName="state">
+                                @for(state of stateData2; track state.id){
+                                    <option [value]="state.name">{{state.name}}</option>
+                                 }
+                              </select>
+                              @if (stateBilling?.invalid && (stateBilling?.touched||stateBilling?.dirty)) {
+                                <div>
+                                  @if (stateBilling?.errors?.['required']) {
+                                  <div class="alert alert-danger">
+                                      Select A State
+                                  </div>
+                                  }
+              
+                                </div>
+                              }
+                              
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Zip Code</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <input formControlName="zipCode" type="text">
+                          </div>
+                          @if (zipCodeBilling?.invalid && (zipCodeBilling?.touched||zipCodeBilling?.dirty)) {
+                            <div>
+                              @if (zipCodeBilling?.errors?.['required']) {
+                              <div class="alert alert-danger">
+                                  ZipCode is Required.
+                              </div>
+                              }
+                              @if (zipCodeBilling?.errors?.['minlength']) {
+                                  <div class="alert alert-danger">
+                                      Check the ZipCode Again
+                                  </div>
+                                  }
+                            </div>
+                          }
+                      </div>
+                  </div>
+
+              </div>
+
+              <!-- Credit Card -->
+              <div formGroupName="creditCard" class="form-area">
+                  <h3>Credit Card</h3>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Card Type</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <select formControlName="cardType">
+                                  <option>Visa</option>
+                                  <option>Mastercard</option>
+                              </select>
+                              @if (cardType?.invalid && (cardType?.touched||cardType?.dirty)) {
+                                <div>
+                                  @if (cardType?.errors?.['required']) {
+                                  <div class="alert alert-danger">
+                                      CardType is Required
+                                  </div>
+                                  }
+              
+                                </div>
+                              }
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Name on Card</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <input formControlName="nameOnCard" type="text">
+                          </div>
+                          @if (nameOnCard?.invalid && (nameOnCard?.touched||nameOnCard?.dirty)) {
+                            <div>
+                              @if (nameOnCard?.errors?.['required']) {
+                              <div class="alert alert-danger">
+                                  Name is Required.
+                              </div>
+                              }
+                              @if (nameOnCard?.errors?.['minlength']) {
+                                  <div class="alert alert-danger">
+                                      Minimum Length is required.
+                                  </div>
+                                  }
+                            </div>
+                          }
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Card Number</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <input formControlName="cardNumber" type="text">
+                          </div>
+                          @if (cardNumber?.invalid && (cardNumber?.touched||cardNumber?.dirty)) {
+                            <div>
+                              @if (cardNumber?.errors?.['required']) {
+                              <div class="alert alert-danger">
+                                  Credit Card is Required.
+                              </div>
+                              }
+                              @if (cardNumber?.errors?.['pattern']) {
+                                  <div class="alert alert-danger">
+                                      Check Card Number
+                                  </div>
+                                  }
+                            </div>
+                          }
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Security Code</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <input formControlName="securityCode" type="text">
+                          </div>
+                          @if (securityCode?.invalid && (securityCode?.touched||securityCode?.dirty)) {
+                            <div>
+                              @if (securityCode?.errors?.['required']) {
+                              <div class="alert alert-danger">
+                                  Security Code is Required.
+                              </div>
+                              }
+                              @if (securityCode?.errors?.['pattern']) {
+                                  <div class="alert alert-danger">
+                                      Check Security Code
+                                  </div>
+                                  }
+                            </div>
+                          }
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Expiration Month</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <select formControlName="expirationMonth">
+                                <option>Select Month</option>
+                                @for(month of months; track month){
+                                  <option>{{month}}</option>
+                                }
+                              </select>
+                              @if (expirationMonth?.invalid && (expirationMonth?.touched||expirationMonth?.dirty)) {
+                                <div>
+                                  @if (expirationMonth?.errors?.['required']) {
+                                  <div class="alert alert-danger">
+                                      Month Is Required
+                                  </div>
+                                  }
+              
+                                </div>
+                              }
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-2"> <label>Expiration Year</label></div>
+                      <div class="col-md-9">
+                          <div class="input-space">
+                              <select formControlName="expirationYear" (change)="handleMonthsAndYears()">
+                                <option>Select Year</option>
+                                @for(year of years; track year){
+                                  <option>{{year}}</option>
+                                }
+                              </select>
+                              @if (expirationYear?.invalid && (expirationYear?.touched||expirationYear?.dirty)) {
+                                <div>
+                                  @if (expirationYear?.errors?.['required']) {
+                                  <div class="alert alert-danger">
+                                      Year Is Required
+                                  </div>
+                                  }
+              
+                                </div>
+                              }
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+
+              <!-- Order details -->
+              <div class="form-area">
+                  <h3>Review Your Order</h3>
+
+                  <p>Total Quantity: {{ totalQuantity }}</p>
+                  <p>Shipping: FREE</p>
+                  <p>Total Price: {{ totalPrice | currency: 'USD' }}</p>
+              </div>
+
+              <!-- submit button-->
+              <div class="text-center">
+                  <button type="submit" class="btn btn-info">Purchase</button>
+              </div>
+              
+
+          </form>
+
+      </div>
+  </div>
+</div>
+

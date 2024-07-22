@@ -1,0 +1,13 @@
+<div class="menu-sidebar-content js-scrollbar1">
+    <nav class="navbar-sidebar">
+      <ul class="list-unstyled navbar-list">
+        @for (item of categoryData; track item.categoryName) {
+        <li>
+          <a [routerLink]="['/category',item.id]" routerLinkActive="router-link-active" >{{item.categoryName}}</a> 
+        </li>
+    }
+        
+      </ul>
+    </nav>
+  </div>
+  

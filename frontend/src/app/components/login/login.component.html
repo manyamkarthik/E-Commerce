@@ -1,0 +1,37 @@
+<div class="main-content page-m">
+    <div class="section-content section-content-p30">
+      <div class="container-fluid">
+        <div class="login-container">
+            <form [formGroup]="loginForm" class="login-form" (ngSubmit)="login()">
+              <h2>Login</h2>
+              <div class="form-group">
+                <label for="username">Email</label>
+                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['username'].errors }">
+                <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                  <div *ngIf="f['username'].errors?.['required']">
+                    Email is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                  <div *ngIf="f['password'].errors?.['required']">
+                    Password is required.
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-info">Login</button>
+              </div>
+            </form>
+          </div>
+          
+          
+          
+          
+        
+</div>
+</div>
+</div>
