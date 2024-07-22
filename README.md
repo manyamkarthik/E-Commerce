@@ -39,5 +39,5 @@ This is a full-stack E-Commerce application built using Spring Boot for the back
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/manyamkarthik/E-Commerce.git
-   cd E-Commerce/backend
+   git clone https://github.com/manyamkarthik/E-commerce.git
+   cd E-commerce/backend
